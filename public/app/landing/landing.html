@@ -1,0 +1,11 @@
+<form class="form"  ng-submit="vm.sendData(vm.stockForm.stockName)">
+  <div class="form-group">
+    <label>Stock Symbol</label>
+    <input type="text" class="form-control" name="stock" ng-model="vm.stockForm.stockName" required>
+    <p>{{vm.stockForm.stockName}}{{vm.test}}</p>
+  </div>
+    <div>
+      <button type="submit" class="btn btn-primary btn-md" ng-disabled="disabled">Add</button>
+    </div>
+</form>
+{{vm.test}}
