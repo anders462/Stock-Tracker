@@ -30,7 +30,10 @@
     "dotenv": "^2.0.0",
     "express": "^4.13.4",
     "mongoose": "^4.4.6",
+    "mongoose-sequence": "^3.0.2",
+    "monitor.io": "^0.1.0",
     "morgan": "^1.7.0",
+    "request-promise": "^2.0.1",
     "serve-favicon": "^2.3.0",
     "socket.io": "^1.4.5"
   }

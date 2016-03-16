@@ -10,6 +10,7 @@ angular
     'ui.router',
     //Custom modules
     'stockApp.landing',
-    'stockApp.settings',
     'stockApp.core'
   ]);
+
+})();

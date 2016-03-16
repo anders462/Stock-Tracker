@@ -6,19 +6,20 @@ angular
   .module('stockApp.landing')
   .controller('LandingController', LandingController)
 
-  LandingController.$inject = ['socketFactory'];
+  LandingController.$inject = ['stockFactory', 'socketFactory'];
 
-  function LandingController(socketFactory){
+  function LandingController(stockFactory, socketFactory){
 
     var vm = this;
-
+    vm.stockForm ={};
+    vm.stockData =[];
 
     vm.sendData = function(data)  {
-      console.log(data);
+      socketFactory.send(data);
+      vm.stockForm ={};
     }
 
   }
-
 
 
 })();

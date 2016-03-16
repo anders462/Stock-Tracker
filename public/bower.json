@@ -1,0 +1,27 @@
+{
+  "name": "public",
+  "homepage": "https://github.com/anders462/Stock-Tracker.git",
+  "authors": [
+    "anders462 <anders462@gmail.com>"
+  ],
+  "description": "",
+  "main": "",
+  "moduleType": [],
+  "license": "MIT",
+  "ignore": [
+    "**/.*",
+    "node_modules",
+    "bower_components",
+    "test",
+    "tests"
+  ],
+  "dependencies": {
+    "angular": "^1.5.0",
+    "angular-ui-router": "^0.2.18",
+    "bootstrap": "^3.3.6",
+    "jquery": "^2.2.1",
+    "angular-resource": "^1.5.0",
+    "font-awesome": "^4.5.0",
+    "socket.io-client": "^1.4.5"
+  }
+}
