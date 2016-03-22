@@ -8,8 +8,8 @@ var express = require('express'), // express lightweight node framework
     cors = require('cors'), // Cors configuration
     favicon = require('serve-favicon'),
     socket = require('./routes/socket'),
-    api = require('./routes/api'),
-    search = require('./routes/search');
+    api = require('./routes/api');
+  //  search = require('./routes/search');
   //  api = require('./routes/api_routes'); // get api routes module
 
     var app = express(); // create express app instance
@@ -40,7 +40,7 @@ var express = require('express'), // express lightweight node framework
     app.use(favicon(__dirname + '/public/favicon.ico'));
     app.use(morgan('dev')); //add morgan middleware logger
     app.use('/api',api);
-    app.use('/search',search);
+    //app.use('/search',search);
 
     // Start the server
     http.listen(app.get('port'), function(){

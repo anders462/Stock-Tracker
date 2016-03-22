@@ -7,7 +7,7 @@ var AutoIncrement = require('mongoose-sequence');
 var Schema = mongoose.Schema
 
 var Stock = new Schema ({
-  stock: String,
+  stock: {type: String, required:true, unique:true},
   created:{ type: Date, default: Date.now }
 });
 

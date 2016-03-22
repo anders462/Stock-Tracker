@@ -3,36 +3,24 @@
 
 
 var express = require('express');
-var Stock = require('../models/stock');
+var stockApp = require('../app/stockApp');
 
 var api = express.Router();
 //exports api router
 module.exports = api;
 
-
 api.route('/')
-  .get(function(req,res,next){
-      Stock.find({},{_id:0,id:1,stock:1},function(err,doc){
-        if(err){
-          throw(err);
-          console.log(err);
-        }
-        res.status(200).json({"success": true, doc});
-
-      });
+//get all stocks symbols from  db and fetch there prices
+  .get(function(req,res){
+    stockApp.getStocks(req,res);
   })
-    // add check if valid req.body
-    // add check that stock do not exist before saving
-  .post(function(req,res,next){
-    var stock = new Stock({stock:req.body.stockName});
-    stock.save(function(err,doc){
-      if(err){
-        throw(err);
-        console.log(err);
-      }
-      res.status(200).json({"success": true, "message": doc});
-    });
+//save a new stock symbol to data base return new stock price data
+  .post(function(req,res){
+    stockApp.saveStock(req,res);
   });
+
+
+
 
 api.route('/:stockId')
   .get(function(req,res,next){
