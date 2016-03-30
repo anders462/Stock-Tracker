@@ -3,8 +3,7 @@
 
 var express = require('express'),
     rp = require('request-promise'),
-    Stock = require('../models/stock'),
-    unixTime = require('unix-time');
+    Stock = require('../models/stock');
 
 //Quandle URL Params
 var api_key = process.env.API_KEY;
@@ -26,13 +25,7 @@ var getStockPrice = function(stock){
     function(data){
       //console.log(JSON.parse(data).dataset)
       var stock = JSON.parse(data).dataset
-      //change date format to unix-time in ms
-      var dateFormated = stock.data.map(function(elem){
-         elem[0] = 1000*unixTime(elem[0]);
-         return elem;
-      })
-      var parsedName = stock.name.substr(0,stock.name.indexOf("Price")-1);
-      resolve({ticker: stock.dataset_code, name: parsedName, data: stock.data });
+      resolve({ticker: stock.dataset_code, name: stock.name, data: stock.data });
     }
   )
   .catch(
@@ -47,11 +40,21 @@ var getStockPrice = function(stock){
 
 
 module.exports = {
-  getCachedStocks: function(req,res){
+  getStocks: function(req,res){
     //Get all stocks from database
-    Stock.find({},{_id:0}).then(
+    Stock.find({},{_id:0,id:1,stock:1}).then(
         function(data){
+          console.log(data)
           //map each stock to a request function and push in array
+          var reqFunc = data.map(function(elem){
+            return getStockPrice(elem.stock.toUpperCase());
+          })
+          //request stock data Quandle from all stocks in db in parallell
+          //resolved data will be an array of responses
+          return Promise.all(reqFunc);
+        }
+      ).then(
+        function(data){
           res.status(200).json({"success": true, "info": data});
         }
       )
@@ -64,17 +67,22 @@ module.exports = {
 
 
   saveStock: function(req,res){
+    var result ={};
     console.log(req.body.stockName);
     getStockPrice(req.body.stockName.toUpperCase())
       .then(
          function(data){
+           result.data = data;
            //cache info plus stock data
-           var stock = new Stock({ticker:data.ticker,name:data.name, data: data.data});
+           var stock = new Stock({ticker:data.ticker,name:data.name,data:data.data});
+           console.log(stock)
            return  stock.save()
          }
       ).then(
         function(doc){
-          res.status(200).json({"success": true, "data": doc});
+          result.success = true;
+          result.doc = doc;
+          res.status(200).json(result);
         }
       ).catch(
         function(err){
@@ -82,43 +90,5 @@ module.exports = {
 
         }
       )
-  },
-
-    updateStock: function(req,res){
-      getStockPrice(req.params.stock.toUpperCase())
-        .then (
-          function(data){
-            console.log(data)
-            return Stock.findOneAndUpdate({ticker:req.params.stock.toUpperCase()},
-            {$set:{data:data.data}},{new:true});
-          }
-        ).then(
-          function(doc){
-            res.status(200).json({"success": true, "data": doc});
-          }
-        )
-        .catch(
-          function(err){
-            res.status(400).json({"success": false, "message": err});
-          }
-        )
-
-      },
-
-      deleteStock: function(req,res){
-        Stock.remove({ticker: req.params.stock.toUpperCase()})
-          .then(
-            function(doc){
-              res.status(200).json({"success": true, "data": doc});
-            }
-          )
-          .catch(
-            function(err){
-              res.status(400).json({"success": false, "message": err});
-
-          }
-
-        )
-      }
-
+  }
 };

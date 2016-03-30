@@ -7,8 +7,11 @@ var AutoIncrement = require('mongoose-sequence');
 var Schema = mongoose.Schema
 
 var Stock = new Schema ({
-  stock: {type: String, required:true, unique:true},
-  created:{ type: Date, default: Date.now }
+  name: {type: String},
+  ticker: {type: String, required: true, unique:true},
+  data: {type: Array}
+},{
+  timestamps: true
 });
 
 // Automatically creates id with inc counter

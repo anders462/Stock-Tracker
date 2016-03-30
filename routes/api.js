@@ -10,38 +10,24 @@ var api = express.Router();
 module.exports = api;
 
 api.route('/')
-//get all stocks symbols from  db and fetch there prices
+//get all stocks symbols from db and there cached prices
   .get(function(req,res){
-    stockApp.getStocks(req,res);
+    stockApp.getCachedStocks(req,res);
   })
-//save a new stock symbol to data base return new stock price data
+//get price info for new stock and save the data
+//return new stock price data to client
   .post(function(req,res){
     stockApp.saveStock(req,res);
   });
 
 
-
-
-api.route('/:stockId')
-  .get(function(req,res,next){
-    Stock.find({id: req.params.stockId},{_id:0,id:1,stock:1},function(err,doc){
-      if(err){
-        throw(err);
-        console.log(err);
-      }
-      res.status(200).json({"success": true, doc});
-
-    });
+api.route('/:stock')
+  //request updated data for stock with to old
+  //cashed data. Db cache will be updated
+  .get(function(req,res){
+      stockApp.updateStock(req,res);
   })
-
-  .delete(function(req,res,next){
-    Stock.remove({id: req.params.stockId}, function(err,doc){
-      if(err){
-        throw(err);
-        console.log(err);
-      }
-      res.status(200).json({"success": true, doc});
-
-    })
-
+  //delete stock with stockId from db
+  .delete(function(req,res){
+    stockApp.deleteStock(req,res);
   });

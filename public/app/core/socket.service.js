@@ -15,12 +15,13 @@ angular
 
 
     socket.on('stock',function(stock){
-      console.log("rec ",stock)
-      $rootScope.addedStock = stock;
+      console.log("recieved ",stock)
+      $rootScope.stock = stock;
+      $rootScope.$broadcast("change");
     });
 
-     function send(stock){
-       console.log(stock);
+    var send =  function(stock){
+       console.log("socket emit",stock);
        socket.emit('stock', stock);
      }
 

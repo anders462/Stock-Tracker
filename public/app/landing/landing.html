@@ -1,21 +1,55 @@
 <div class="container">
 
+
+
+<div class="row">
+
+<div id="chart-container"></div>
+
+</div>
+
+<div class="row">
+
+<div class="col-xs-12">
   <div class="row">
-    {{addedStock}}
+    <div class="col-xs-6 col-sm-3 col-md-2" ng-repeat="stock in vm.stockData">
+      <div class="left-center" id="stockName" ng-click ="vm.removeStock(stock.ticker)">
+        <h6>{{stock.ticker}}</h6>
+        {{stock.name}}&nbsp
+        <span class="right-center glyphicon glyphicon-remove-circle"></span>
+      </div>
+    </div>
   </div>
+</div>
+<div class="col-xs-4">
+  <form class="form"  ng-submit="vm.addStock(vm.stockForm.ticker)">
+    <div class="form-group">
+      <br><label id="search" >Add Stock Symbol</label>
+      <input type="text" class="form-control" name="stock" ng-model="vm.stockForm.ticker" required>
+      <p>{{vm.stockForm.stockName}}{{vm.test}}</p>
+    </div>
+      <div>
+        <button type="submit" class="btn btn-primary btn-md" ng-disabled="disabled">Add Stock</button>
+      </div>
+  </form>
+</div>
+<div class="col-xs-8">
+
+</div>
 
 </div>
 
 
 
-<form class="form"  ng-submit="vm.sendData(vm.stockForm.ticker)">
-  <div class="form-group">
-    <label>Stock Symbol</label>
-    <input type="text" class="form-control" name="stock" ng-model="vm.stockForm.ticker" required>
-    <p>{{vm.stockForm.stockName}}{{vm.test}}</p>
-  </div>
-    <div>
-      <button type="submit" class="btn btn-primary btn-md" ng-disabled="disabled">Add</button>
-    </div>
-</form>
-{{vm.test}}
+
+
+
+
+
+
+
+
+
+
+
+</div>

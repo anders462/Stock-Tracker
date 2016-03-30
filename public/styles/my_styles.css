@@ -1,0 +1,33 @@
+body {
+  background-color: grey;
+  margin-top: 30px;
+}
+
+
+#stockName {
+  border: 2px solid white;
+  border-radius: 2px;
+  width: 150px;
+  height: 70px;
+  margin-top: 20px;
+  font-size: 10px;
+  padding: 2px 2px 2px 5px ;
+  color: black;
+  background-color: lightgrey;
+ }
+
+ .navbar-default .navbar-nav {
+   color: rgb(246, 242, 241) !important;
+ }
+
+ #search {
+   color: white;
+ }
+
+#chart-container {
+  max-height: 500px;
+  max-width: 100%;
+  margin-left:20px;
+  margin-right:20px;
+
+}

@@ -6,20 +6,28 @@ angular
   .module('stockApp.core')
   .factory("stockFactory", stockFactory)
 
-  stockFactory.$inject = [];
+  stockFactory.$inject = ['$http','BASE_URL'];
 
-  function stockFactory(){
+  function stockFactory($http,BASE_URL){
 
-   var stocks = [];
-
-   var save = function(data){
-     stocks.push(data);
-     console.log(stocks);
-
+//get all stock data on ticker symbols in db
+   var getStocks = function(){
+     return $http.get(BASE_URL+ "/api");
    }
 
+   var addStock = function(stock){
+     return $http.post(BASE_URL + "/api", stock);
+   }
+
+   var removeStock = function(stock){
+     return $http.delete(BASE_URL + '/api/' + stock);
+   }
+
+
    return {
-     save: save
+     getStocks: getStocks,
+     addStock: addStock,
+     removeStock: removeStock
    }
 
 
