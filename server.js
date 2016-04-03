@@ -32,6 +32,7 @@ var express = require('express'), // express lightweight node framework
     //init socket
     socket(io);
 
+
     //add middleware parser for urlencoded body data POST and URL JSon params
     app.use(bodyParser.urlencoded({extended:false})); //extended = false option => use querystring library
     app.use(bodyParser.json());
