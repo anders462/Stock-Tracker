@@ -12,6 +12,7 @@ module.exports = api;
 api.route('/')
 //get all stocks symbols from db and there cached prices
   .get(function(req,res){
+    res.json({message:"test"});
     stockApp.getCachedStocks(req,res);
   })
 //get price info for new stock and save the data
