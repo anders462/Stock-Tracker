@@ -16,7 +16,7 @@ var express = require('express'), // express lightweight node framework
     var http = require('http').Server(app);
     var io = require('socket.io')(http);
 
-    app.use(cors());  //add CORS to all routes
+    //app.use(cors());  //add CORS to all routes
     app.set('port', (process.env.PORT || 8000));   // set port for server
      //-----------------------------------
      // -- connect to mongo database -----
