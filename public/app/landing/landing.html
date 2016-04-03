@@ -13,10 +13,10 @@
 <div class="col-xs-12">
   <div class="row">
     <div class="col-xs-6 col-sm-3 col-md-2" ng-repeat="stock in vm.stockData">
-      <div class="left-center" id="stockName" ng-click ="vm.removeStock(stock.ticker)">
+      <div class="left-center stockName" ng-class="{borderColor:hover }" ng-mouseenter="hover = true"
+    ng-mouseleave="hover = false"  ng-click ="vm.removeStock(stock.ticker)">
         <h6>{{stock.ticker}}</h6>
         {{stock.name}}&nbsp
-        <span class="right-center glyphicon glyphicon-remove-circle"></span>
       </div>
     </div>
   </div>
@@ -27,6 +27,9 @@
       <br><label id="search" >Add Stock Symbol</label>
       <input type="text" class="form-control" name="stock" ng-model="vm.stockForm.ticker" required>
       <p>{{vm.stockForm.stockName}}{{vm.test}}</p>
+    </div>
+    <div id="infoText" ng-show="vm.noData">
+      <p>Sorry, no data on this Stock symbol</p>
     </div>
       <div>
         <button type="submit" class="btn btn-primary btn-md" ng-disabled="disabled">Add Stock</button>

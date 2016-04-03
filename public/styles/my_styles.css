@@ -4,7 +4,7 @@ body {
 }
 
 
-#stockName {
+.stockName {
   border: 2px solid white;
   border-radius: 2px;
   width: 150px;
@@ -16,9 +16,7 @@ body {
   background-color: lightgrey;
  }
 
- .navbar-default .navbar-nav {
-   color: rgb(246, 242, 241) !important;
- }
+
 
  #search {
    color: white;
@@ -30,4 +28,19 @@ body {
   margin-left:20px;
   margin-right:20px;
 
+}
+
+#infoText {
+  border: solid 2px white;
+  border-radius: 5px;
+  background-color: white;
+  color: rgb(143, 11, 34);
+  font-size: 12px;
+  font-weight: bold;
+  margin: 10px;
+
+}
+
+.borderColor {
+  border: 2px solid rgb(32, 230, 15);
 }

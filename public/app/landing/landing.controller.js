@@ -14,6 +14,7 @@ angular
     vm.stockForm ={};
     vm.stockData = [];
     var newSerie = [];
+    vm.noData = false;
 
 
 //Get all stock data an there cashed prices from db
@@ -42,6 +43,7 @@ angular
       stockFactory.addStock({stockName:data}).then(
         function(resp){
           vm.stockForm ={};
+          vm.noData = false;
           vm.stockData.push(resp.data.data);
           socketFactory.send(resp.data.data);
           chartFactory.addSerie(resp.data.data);
@@ -52,6 +54,7 @@ angular
       .catch(
         function(err){
           console.log(err);
+          vm.noData = true;
           vm.stockForm ={};
         }
       )
